@@ -1,5 +1,7 @@
 package cz.kofron.leangine;
 import android.opengl.*;
+import android.content.*;
+import java.io.*;
 
 public abstract class AbstractShader
 {
@@ -9,6 +11,8 @@ public abstract class AbstractShader
 	public int u_view;
 	public int u_proj;
 	public int u_norm;
+	
+	public abstract void load(Context context) throws IOException, ShaderException;
 	
 	public void bindLocations()
 	{

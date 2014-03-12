@@ -11,13 +11,15 @@ public class MainActivity extends Activity
 	private static GLView view = null;
 	private LinearLayout layout = null;
 	
-	public static Leangine LEA = new Leangine();
+	public static Leangine LEA = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState)
 	{
         super.onCreate(savedInstanceState);
         
+		LEA = new Leangine(this);
+		
 		view = new GLView(this);
 
 		layout = new LinearLayout(this);

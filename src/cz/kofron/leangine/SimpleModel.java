@@ -6,6 +6,8 @@ public class SimpleModel extends AbstractModel
 {
 	protected int facesCount;
 	protected int stride;
+	protected int vertexOffset;
+	protected int normalOffset;
 	
 	protected SimpleModelData data;
 	
@@ -29,6 +31,8 @@ public class SimpleModel extends AbstractModel
 		GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
 		stride = data.getStride();
+		vertexOffset = data.getVertexOffset();
+		normalOffset = data.getNormalOffset();
 	}
 	
 	@Override
@@ -53,13 +57,13 @@ public class SimpleModel extends AbstractModel
 	}
 	
 	@Override
-	public void preDraw(Transformer trans)
+	protected void preDraw(Transformer trans)
 	{
 		GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo[0]);
-		GLES20.glVertexAttribPointer(getShader().a_pos, 3, GLES20.GL_FLOAT, false, stride, 0);
+		GLES20.glVertexAttribPointer(getShader().a_pos, 3, GLES20.GL_FLOAT, false, stride, vertexOffset);
 		GLES20.glEnableVertexAttribArray(getShader().a_pos);
 
-		GLES20.glVertexAttribPointer(getShader().a_norm, 3, GLES20.GL_FLOAT, false, stride, 3 * 4);
+		GLES20.glVertexAttribPointer(getShader().a_norm, 3, GLES20.GL_FLOAT, false, stride, normalOffset);
 		GLES20.glEnableVertexAttribArray(getShader().a_norm);
 	}
 	
@@ -70,8 +74,11 @@ public class SimpleModel extends AbstractModel
 	}
 
 	@Override
-	public void pastDraw(Transformer trans)
+	protected void pastDraw(Transformer trans)
 	{
+		GLES20.glDisableVertexAttribArray(getShader().a_norm);
+		GLES20.glDisableVertexAttribArray(getShader().a_pos);
+		GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 	}
 	
 	private SimpleShader getShader()

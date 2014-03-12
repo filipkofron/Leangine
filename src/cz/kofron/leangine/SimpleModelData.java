@@ -45,6 +45,21 @@ public class SimpleModelData
 		return vertexCount;
 	}
 	
+	public int getVertexOffset()
+	{
+		return 0;
+	}
+	
+	public int getNormalOffset()
+	{
+		return 3 * 4;
+	}
+	
+	public int getFullWidth()
+	{
+		return (3 + 3) * 4;
+	}
+	
 	private synchronized void initialize()
 	{
 		if(initialized)

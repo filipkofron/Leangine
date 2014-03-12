@@ -23,7 +23,7 @@ public abstract class AbstractModel extends ModelNode
 		draw(trans);
 	}
 	
-	protected abstract void draw(Transformer trans);
 	protected abstract void preDraw(Transformer trans);
+	protected abstract void draw(Transformer trans);
 	protected abstract void pastDraw(Transformer trans);
 }

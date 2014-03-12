@@ -1,6 +1,7 @@
 package cz.kofron.leangine;
 import java.util.*;
 import android.opengl.*;
+import android.content.*;
 
 public class Leangine
 {
@@ -11,8 +12,11 @@ public class Leangine
 	
 	private int currentCam = 0;
 	
-	public Leangine()
+	private Context context;
+	
+	public Leangine(Context context)
 	{
+		this.context = context;
 		cameras.add(new Camera());
 	}
 	
@@ -24,6 +28,8 @@ public class Leangine
 	
 	public void onInitializeGLContext()
 	{
+		ShaderCollection.loadShaders(context);
+		
 		GLES20.glDisable(GLES20.GL_CULL_FACE);
 	}
 	
@@ -32,7 +38,7 @@ public class Leangine
 		sceneRoot.updateTransforms();
 		
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-		GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		GLES20.glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		
 		sceneRoot.onDraw(transformer);
 	}
