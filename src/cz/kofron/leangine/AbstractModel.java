@@ -1,5 +1,6 @@
 package cz.kofron.leangine;
 import java.util.*;
+import android.opengl.*;
 
 public abstract class AbstractModel extends ModelNode
 {
@@ -18,11 +19,20 @@ public abstract class AbstractModel extends ModelNode
 	protected void onDraw(Transformer trans)
 	{
 		trans.updateNormal();
+		
+		GLES20.glUseProgram(shader.program);
+		Util.checkGLError("GLES20.glUseProgram(shader.program);");
+		
 		trans.uploadToShader(shader);
-
+		
+		preDraw(trans);
 		draw(trans);
+		pastDraw(trans);
+		
+		GLES20.glUseProgram(0);
+		Util.checkGLError("GLES20.glUseProgram(0);");
 	}
-	
+
 	protected abstract void preDraw(Transformer trans);
 	protected abstract void draw(Transformer trans);
 	protected abstract void pastDraw(Transformer trans);

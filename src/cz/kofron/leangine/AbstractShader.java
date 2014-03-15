@@ -17,8 +17,12 @@ public abstract class AbstractShader
 	public void bindLocations()
 	{
 		u_model = GLES20.glGetUniformLocation(program, "u_model");
+		Util.checkGLError("u_model = GLES20.glGetUniformLocation(program, \"u_model\");");
 		u_view = GLES20.glGetUniformLocation(program, "u_view");
+		Util.checkGLError("u_view = GLES20.glGetUniformLocation(program, \"u_view\");");
 		u_proj = GLES20.glGetUniformLocation(program, "u_proj");
+		Util.checkGLError("u_proj = GLES20.glGetUniformLocation(program, \"u_proj\");");
 		u_norm = GLES20.glGetUniformLocation(program, "u_norm");
+		Util.checkGLError("u_norm = GLES20.glGetUniformLocation(program, \"u_norm\");");
 	}
 }

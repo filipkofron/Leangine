@@ -4,7 +4,7 @@ import android.opengl.*;
 
 public class Transformer
 {
-	private List<float []> parents = new ArrayList<float []>();
+	private ArrayList<float []> parents = new ArrayList<float []>();
 	private int cursor = 0;
 	
 	public float [] model;
@@ -42,6 +42,26 @@ public class Transformer
 		cursor--;
 		model = parents.get(cursor);
 	}
+
+	public void printAll()
+	{
+		print(model, "model");
+		int cur = 0;
+		for(float [] mat : parents)
+		{
+			print(mat, "cursor: " + cur);
+			cur++;
+		}
+	}
+	
+	public void print(float [] mat, String name)
+	{
+		System.out.println("== Matrix: " + name + " ==");
+		System.out.println(mat[0] + ", " + mat[1] + ", " + mat[2] + ", " + mat[3]);
+		System.out.println(mat[4] + ", " + mat[5] + ", " + mat[6] + ", " + mat[7]);
+		System.out.println(mat[8] + ", " + mat[9] + ", " + mat[10] + ", " + mat[11]);
+		System.out.println(mat[12] + ", " + mat[13] + ", " + mat[14] + ", " + mat[15]);
+	}
 	
 	public void updateNormal()
 	{
@@ -53,8 +73,12 @@ public class Transformer
 	public void uploadToShader(AbstractShader shader)
 	{
 		GLES20.glUniformMatrix4fv(shader.u_model, 1, false, model, 0);
+		Util.checkGLError("GLES20.glUniformMatrix4fv(shader.u_model, 1, false, model, 0);");
 		GLES20.glUniformMatrix4fv(shader.u_view, 1, false, view, 0);
+		Util.checkGLError("GLES20.glUniformMatrix4fv(shader.u_view, 1, false, view, 0);");
 		GLES20.glUniformMatrix4fv(shader.u_proj, 1, false, projection, 0);
+		Util.checkGLError("GLES20.glUniformMatrix4fv(shader.u_proj, 1, false, projection, 0);");
 		GLES20.glUniformMatrix4fv(shader.u_norm, 1, false, normal, 0);
+		Util.checkGLError("GLES20.glUniformMatrix4fv(shader.u_norm, 1, false, normal, 0);");
 	}
 }

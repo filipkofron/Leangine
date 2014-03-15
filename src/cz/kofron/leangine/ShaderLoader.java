@@ -29,10 +29,10 @@ public class ShaderLoader
 		GLES20.glLinkProgram(program);
 		
 		int[] linked = new int[1];
-		GLES20.glGetShaderiv(program, GLES20.GL_LINK_STATUS, linked, 0);
+		GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, linked, 0);
 		if (linked[0] == 0)
 		{
-			throw new ShaderException("Could not link program:" + GLES20.glGetShaderInfoLog(program));
+			throw new ShaderException("Could not link program: " + GLES20.glGetProgramInfoLog(program));
 		}
 		
 		return program;

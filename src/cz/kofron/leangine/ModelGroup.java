@@ -43,4 +43,10 @@ public class ModelGroup extends ModelNode
 			trans.ascend();
 		}
 	}
+	
+	public void addNode(ModelNode node, Transform transform)
+	{
+		NodeHolder nh = new NodeHolder(node, transform);
+		nodes.add(nh);
+	}
 }

@@ -1,6 +1,8 @@
 package cz.kofron.leangine;
 import android.content.*;
 import java.io.*;
+import android.opengl.*;
+import android.util.*;
 
 public class Util
 {
@@ -37,4 +39,12 @@ public class Util
 
 		return res;
 	}
+	
+	public static void checkGLError(String op) {
+    	int error;
+    	while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR)
+		{
+            Log.e("MyApp", op + ": glError " + error);
+		}
+    }
 }

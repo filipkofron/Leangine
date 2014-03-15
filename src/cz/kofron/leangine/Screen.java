@@ -3,8 +3,8 @@ import android.opengl.*;
 
 public class Screen
 {
-	public final static float DEFAULT_FOV = 75.0f;
-	public final static float DEFAULT_NEAR = 1.0f;
+	public final static float DEFAULT_FOV = 30.0f;
+	public final static float DEFAULT_NEAR = 0.2f;
 	public final static float DEFAULT_FAR = 100.0f;
 	
 	private float width = 1.0f;
