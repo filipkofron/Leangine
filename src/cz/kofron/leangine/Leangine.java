@@ -17,6 +17,7 @@ public class Leangine
 	public Leangine(Context context)
 	{
 		this.context = context;
+		TextureHelper.context = context;
 		cameras.add(new Camera());
 	}
 	
@@ -33,26 +34,31 @@ public class Leangine
 		GLES20.glDisable(GLES20.GL_CULL_FACE);
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 		
-		SimpleModel sm = new SimpleModel(new TestSimpleModelData());
+		TexturedModel sm = new TexturedModel(new TestTexturedModelData());
 		sm.initializeGL();
 		sm.uploadData();
 		
 		ModelGroup mg = new ModelGroup();
-		mg.addNode(sm, new RotatingTransform(0,0,90));
+		mg.addNode(sm, new RotatingTransform(0,0,20));
 		
-		RotatingTransform t = new RotatingTransform(80,0,0);
-		RotatingTransform t2 = new RotatingTransform(0,70,0);
+		RotatingTransform t = new RotatingTransform(20,0,0);
+		RotatingTransform t2 = new RotatingTransform(0,20,0);
 		
 		sceneRoot.addNode(mg, t);
-		
-		SimpleColorModel cm2 = new SimpleColorModel(new TestSimpleColorModelData());
+		ColorCircleData ccd = new ColorCircleData(16);
+		SimpleColorModel cm2 = new SimpleColorModel(ccd.makeColorData());
 		cm2.initializeGL();
 		cm2.uploadData();
 		
 		ModelGroup mg2 = new ModelGroup();
 		mg2.addNode(cm2, t2);
 		
-		sceneRoot.addNode(mg2, t);
+		ModelGroup mg3 = new ModelGroup();
+		SimpleTransform sm2 = new SimpleTransform();
+		sm2.translY += 0.5f;
+		mg3.addNode(mg2, sm2);
+		
+		sceneRoot.addNode(mg3, t);
 	}
 	
 	public void drawFrame()

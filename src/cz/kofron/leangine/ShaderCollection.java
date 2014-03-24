@@ -6,11 +6,13 @@ public class ShaderCollection
 {
 	public static AbstractShader simpleShader;
 	public static AbstractShader simpleColorShader;
+	public static AbstractShader texturedShader;
 	
 	public static void loadShaders(Context context)
 	{
 		simpleShader = new SimpleShader();
 		simpleColorShader = new SimpleColorShader();
+		texturedShader = new TexturedShader();
 		try
 		{
 			simpleShader.load(context);
@@ -18,6 +20,9 @@ public class ShaderCollection
 			
 			simpleColorShader.load(context);
 			simpleColorShader.bindLocations();
+			
+			texturedShader.load(context);
+			texturedShader.bindLocations();
 		}
 		catch (IOException e)
 		{e.printStackTrace(System.err);}
