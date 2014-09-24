@@ -3,6 +3,20 @@ import java.util.*;
 import android.opengl.*;
 import android.content.*;
 
+import cz.kofron.leangine.model.ModelGroup;
+import cz.kofron.leangine.model.SimpleColorModel;
+import cz.kofron.leangine.model.TexturedModel;
+import cz.kofron.leangine.model.data.ColorCircleData;
+import cz.kofron.leangine.model.data.TestTexturedModelData;
+import cz.kofron.leangine.scene.Camera;
+import cz.kofron.leangine.scene.SceneRoot;
+import cz.kofron.leangine.scene.Screen;
+import cz.kofron.leangine.shader.ShaderCollection;
+import cz.kofron.leangine.texture.TextureHelper;
+import cz.kofron.leangine.transform.RotatingTransform;
+import cz.kofron.leangine.transform.SimpleTransform;
+import cz.kofron.leangine.transform.Transformer;
+
 public class Leangine
 {
 	private ArrayList<Camera> cameras = new ArrayList<Camera>();
@@ -71,6 +85,6 @@ public class Leangine
 		cameras.get(currentCam).provideView(transformer.view);
 		screen.provideProj(transformer.projection);
 		
-		sceneRoot.onDraw(transformer);
+		sceneRoot.drawScene(transformer);
 	}
 }
