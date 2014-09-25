@@ -3,13 +3,10 @@ package cz.kofron.leangine;
 import android.opengl.*;
 import android.content.*;
 import android.view.*;
-import android.widget.AbsListView.*;
-import android.widget.*;
-import android.support.v4.view.*;
 
 public class GLView extends GLSurfaceView implements GestureDetector.OnGestureListener
 {
-	private GestureDetectorCompat gestureDetector = null;
+	private GestureDetector gestureDetector = null;
 	private GLRenderer renderer = null;
 
 	public GLView(Context context)
@@ -22,7 +19,7 @@ public class GLView extends GLSurfaceView implements GestureDetector.OnGestureLi
 		renderer = new GLRenderer();
 		setRenderer(renderer);
 
-		gestureDetector = new GestureDetectorCompat(context, this);
+		gestureDetector = new GestureDetector(context, this);
 	}
 
 	@Override
