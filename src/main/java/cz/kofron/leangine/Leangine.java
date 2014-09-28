@@ -1,20 +1,14 @@
 package cz.kofron.leangine;
-import java.util.*;
-import android.opengl.*;
-import android.content.*;
+import android.content.Context;
+import android.opengl.GLES20;
 
-import cz.kofron.leangine.model.ModelGroup;
-import cz.kofron.leangine.model.SimpleColorModel;
-import cz.kofron.leangine.model.TexturedModel;
-import cz.kofron.leangine.model.data.ColorCircleData;
-import cz.kofron.leangine.model.data.TestTexturedModelData;
+import java.util.ArrayList;
+
 import cz.kofron.leangine.scene.Camera;
 import cz.kofron.leangine.scene.SceneRoot;
 import cz.kofron.leangine.scene.Screen;
 import cz.kofron.leangine.shader.ShaderCollection;
 import cz.kofron.leangine.texture.TextureHelper;
-import cz.kofron.leangine.transform.RotatingTransform;
-import cz.kofron.leangine.transform.SimpleTransform;
 import cz.kofron.leangine.transform.Transformer;
 
 public class Leangine
@@ -47,7 +41,7 @@ public class Leangine
 		
 		GLES20.glDisable(GLES20.GL_CULL_FACE);
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-		
+		/*
 		TexturedModel sm = new TexturedModel(new TestTexturedModelData());
 		sm.initializeGL();
 		sm.uploadData();
@@ -72,7 +66,7 @@ public class Leangine
 		sm2.translY += 0.5f;
 		mg3.addNode(mg2, sm2);
 		
-		sceneRoot.addNode(mg3, t);
+		sceneRoot.addNode(mg3, t);*/
 	}
 	
 	public void drawFrame()
