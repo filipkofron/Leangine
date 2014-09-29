@@ -8,15 +8,18 @@ public class GLView extends GLSurfaceView implements GestureDetector.OnGestureLi
 {
 	private GestureDetector gestureDetector = null;
 	private GLRenderer renderer = null;
+	private Leangine leangine;
 
-	public GLView(Context context)
+	public GLView(Context context, Leangine leangine)
 	{
 		super(context);
+
+		this.leangine = leangine;
 
 		setEGLContextClientVersion(2);
 		setDebugFlags(GLSurfaceView.DEBUG_CHECK_GL_ERROR | GLSurfaceView.DEBUG_LOG_GL_CALLS);
 
-		renderer = new GLRenderer();
+		renderer = new GLRenderer(leangine);
 		setRenderer(renderer);
 
 		gestureDetector = new GestureDetector(context, this);

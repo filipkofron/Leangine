@@ -4,20 +4,21 @@ import android.opengl.GLES20;
 
 import java.util.ArrayList;
 
-import cz.kofron.leangine.scene.Camera;
+import cz.kofron.leangine.scene.CameraTransform;
 import cz.kofron.leangine.scene.SceneRoot;
-import cz.kofron.leangine.scene.Screen;
+import cz.kofron.leangine.scene.ScreenTransform;
 import cz.kofron.leangine.shader.ShaderCollection;
 import cz.kofron.leangine.texture.TextureHelper;
 import cz.kofron.leangine.transform.Transformer;
 
 public class Leangine
 {
-	private ArrayList<Camera> cameras = new ArrayList<Camera>();
-	private Screen screen = new Screen();
+	private ArrayList<CameraTransform> cameras = new ArrayList<CameraTransform>();
+	private ScreenTransform screen = new ScreenTransform();
 	private SceneRoot sceneRoot = new SceneRoot();
 	private Transformer transformer = new Transformer();
-	
+	private GLView glView;
+
 	private int currentCam = 0;
 	
 	private Context context;
@@ -26,15 +27,31 @@ public class Leangine
 	{
 		this.context = context;
 		TextureHelper.context = context;
-		cameras.add(new Camera());
+		cameras.add(new CameraTransform());
+		glView = new GLView(context, this);
 	}
-	
+
+	public GLView getGlView()
+	{
+		return glView;
+	}
+
 	public void onScreenResize(int w, int h)
 	{
 		GLES20.glViewport(0, 0, w, h);
 		screen.update(w, h);
 	}
-	
+
+	public ScreenTransform getScreen()
+	{
+		return screen;
+	}
+
+	public SceneRoot getSceneRoot()
+	{
+		return sceneRoot;
+	}
+
 	public void onInitializeGLContext()
 	{
 		ShaderCollection.loadShaders(context);
@@ -75,9 +92,12 @@ public class Leangine
 		
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 		GLES20.glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		
-		cameras.get(currentCam).provideView(transformer.view);
-		screen.provideProj(transformer.projection);
+
+		cameras.get(currentCam).onUpdate();
+		cameras.get(currentCam).provide(transformer.view);
+
+		screen.onUpdate();
+		screen.provide(transformer.projection);
 		
 		sceneRoot.drawScene(transformer);
 	}

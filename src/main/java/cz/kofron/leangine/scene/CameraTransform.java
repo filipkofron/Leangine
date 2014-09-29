@@ -1,8 +1,12 @@
 package cz.kofron.leangine.scene;
 import android.opengl.*;
 
-public class Camera
+import cz.kofron.leangine.transform.Transform;
+
+public class CameraTransform extends Transform
 {
+	private float [] tempMatrix = new float[16];
+
 	public static float [] DEFAULT =
 	{
 		0.0f, 0.0f,-2.0f,
@@ -14,9 +18,9 @@ public class Camera
 	private float ctrX, ctrY, ctrZ;
 	private float upX, upY, upZ;
 	
-	public Camera(float eyeX, float eyeY, float eyeZ,
-		float ctrX, float ctrY, float ctrZ,
-		float upX, float upY, float upZ)
+	public CameraTransform(float eyeX, float eyeY, float eyeZ,
+	                       float ctrX, float ctrY, float ctrZ,
+	                       float upX, float upY, float upZ)
 	{
 		this.eyeX = eyeX;
 		this.eyeY = eyeY;
@@ -31,7 +35,7 @@ public class Camera
 		this.upZ = upZ;
 	}
 	
-	public Camera()
+	public CameraTransform()
 	{
 		eyeX = DEFAULT[0];
 		eyeY = DEFAULT[1];
@@ -45,11 +49,18 @@ public class Camera
 		upY = DEFAULT[7];
 		upZ = DEFAULT[8];
 	}
-	
-	public void provideView(float [] mat)
+
+	@Override
+	protected void update()
 	{
-		Matrix.setLookAtM(mat, 0, eyeX, eyeY, eyeZ,
-			ctrX, ctrY, ctrZ, upX, upY, upZ);
+		Matrix.setIdentityM(matrix, 0);
+		Matrix.setLookAtM(matrix, 0, eyeX, eyeY, eyeZ,
+				ctrX, ctrY, ctrZ, upX, upY, upZ);
+	}
+
+	public void provide(float [] mat)
+	{
+		Matrix.setIdentityM(tempMatrix, 0);
+		Matrix.multiplyMM(mat, 0, matrix, 0, tempMatrix, 0);
 	}
 }
-
